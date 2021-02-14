@@ -1,10 +1,32 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Members } from "../Members/Members";
+import { makeStyles } from "@material-ui/core/styles";
+import ButtonStyled from "../Components/ButtonStyled/ButtonStyled";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  Box,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+  Box: {
+    textAlign: "center",
+    margin: "15px auto",
+  },
+  Text: {
+    margin: "15px",
+  },
+}));
 
 const Form = () => {
+  const classes = useStyles();
   const [name, setName] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("pf");
 
   const registerName = (event) => {
     const nameValue = event.target.value;
@@ -26,20 +48,47 @@ const Form = () => {
     Members.push(newMember);
     console.log(Members);
   };
+
   return (
-    <div>
-      <input onChange={registerName} type="text" placeholder="Insira o nome" />
-      <div>
-        <input type="radio" value="pf" onClick={registerType} />
-        <label>Customer</label>
-        <input type="radio" value="pj" onClick={registerType} />
-        <label>Company</label>
-      </div>
-      <Link to="/">
-        <button onClick={register}>Registrar</button>
-        <button>Voltar</button>
+    <Box component="div" className={classes.Box}>
+      <Typography variant="h5" component="h1" className={classes.Text}>
+        Registre um novo Cliente!
+      </Typography>
+      <TextField
+        onChange={registerName}
+        variant="outlined"
+        placeholder="Insira o nome"
+      />
+      <Box component="div" className={classes.Box}>
+        <FormControl component="fieldset">
+          <FormLabel component="legend"> Escolha o tipo:</FormLabel>
+          <FormControlLabel
+            control={
+              <Radio
+                checked={type === "pf"}
+                onChange={registerType}
+                value="pf"
+              />
+            }
+            label="Customer"
+          />
+          <FormControlLabel
+            control={
+              <Radio
+                checked={type === "pj"}
+                onChange={registerType}
+                value="pj"
+              />
+            }
+            label="Company"
+          />
+        </FormControl>
+      </Box>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <ButtonStyled handle={register}>Registrar</ButtonStyled>
+        <ButtonStyled>Voltar</ButtonStyled>
       </Link>
-    </div>
+    </Box>
   );
 };
 
