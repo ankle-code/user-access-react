@@ -18,13 +18,13 @@ const Customer = ({ Members }) => {
   const classes = useStyles();
   return (
     <Card className={classes.Card}>
-      <Typography variant="h4" component="h1">
-        Detalhes da Empresa
+      <Typography variant="h5" component="h1">
+        {member && member.name}
       </Typography>
-
-      <Typography variant="body1" content="p">
-        Nome da empresa: {member && member.name}
+      <Typography content="p">
+        Tipo: {member && member.type.toUpperCase()}
       </Typography>
+      <Typography content="p">Numero: {member && member.id}</Typography>
 
       <Link to="/" style={{ textDecoration: "none" }}>
         <ButtonStyled>Voltar</ButtonStyled>
